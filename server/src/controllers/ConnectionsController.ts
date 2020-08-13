@@ -9,12 +9,17 @@ export default class ConnectionController {
     return response.json({ total })
   }
   async create(request: Request, response: Response) {
-    const { user_id } = request.body
+    try {
 
-    await db('connections').insert({
-      user_id
-    })
+      const { user_id } = request.body
 
-    return response.status(201).send()
+      await db('connections').insert({
+        user_id
+      })
+
+      return response.status(201).send()
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
